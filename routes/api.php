@@ -16,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/projects', [ProjectController::class, 'index']);
-
+Route::get('/types', [ProjectController::class , 'getType']);
+Route::get('/tecnologies', [ProjectController::class, 'getTecn']);
+Route::get('/projectbyslug/{slug}', [ProjectController::class, 'getProjectBySlug']);
