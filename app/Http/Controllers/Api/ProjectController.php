@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Tecnology;
 use App\Models\Type;
+use Database\Seeders\TecnologiesTableSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -32,10 +34,12 @@ class ProjectController extends Controller
         if($project){
             $success = true;
 
+            // per far si che funzionasse ho dovuto cambiare nel file.env la voce APP_URL=http://localhost:8000 aggiungendo :8000
             if($project->image){
-                $project->image = asset('storage/' . $project->image);
+                $project->image = Storage::url($project->image);
             }else{
-                $project->image = asset('storage.uploads/noimg.jpg');
+                // qui c'è bisogno di inserire anche uploads/
+                $project->image = Storage::url('uploads/noimg.jpg');
                 $project->image_original_name = 'no img';
 
             }
@@ -46,5 +50,14 @@ class ProjectController extends Controller
 
         return response()->json(compact('success', 'project'));
 
+    }
+
+    public function getProjectByType($slug){
+        $type = Type::where('slug', $slug)->with('projects')->first();
+        return response()->json($type);
+    }
+
+    public function getProjectByTecnologies($slug){
+        $tecnologies = Tecnology::where('slug', $slug);
     }
 }
