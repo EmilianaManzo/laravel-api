@@ -20,6 +20,8 @@ Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/types', [ProjectController::class , 'getType']);
 Route::get('/tecnologies', [ProjectController::class, 'getTecn']);
 Route::get('/projectbyslug/{slug}', [ProjectController::class, 'getProjectBySlug']);
-// Route::get('/typeproject/{slug}', [ProjectController::class, 'getProjectByType']);
+
+Route::get('/typeproject/{slug}', [ProjectController::class, 'getProjectByType']);
+Route::get('/tecnologiesproject/{slug}', [ProjectController::class, 'getProjectByTecnologies']);
 
 Route::post('/send-email', [LeadController::class, 'store']);

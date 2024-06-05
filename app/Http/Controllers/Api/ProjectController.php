@@ -58,6 +58,8 @@ class ProjectController extends Controller
     }
 
     public function getProjectByTecnologies($slug){
-        $tecnologies = Tecnology::where('slug', $slug);
+        $tecnologies = Tecnology::where('slug', $slug)->with('projects')->first();
+        return response()->json($tecnologies);
+
     }
 }
